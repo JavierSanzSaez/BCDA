@@ -21,7 +21,7 @@ contract Asignatura {
     address[] public profesores; // Proffessors' user addresses
     
     // Error definition
-    error DNIExistsError(string dni, string error_msg);
+    error DNIExistsError (string dni);
 
     /**
      * Datos de una evaluación
@@ -44,6 +44,9 @@ contract Asignatura {
     
     /// Acceder a los datos de un alumno dada su dirección
     mapping(address => DatosAlumno) public datosAlumno;
+    
+    // Mapping para poder comprobar si existe el DNI 
+    mapping(string => string) public dniMap;
     
     /// Array con las direcciones de los alumnos matriculados
     address[] public matriculas;
@@ -94,9 +97,6 @@ contract Asignatura {
         return coordinador;
     }
     function getNombreProfesor(address dirProfesor) public view returns (string memory){
-        string memory nombreProfesor = datosProfesor[dirProfesor];
-        bytes memory bnp = bytes(nombreProfesor);
-        require(bnp.length != 0, "Professor's address does not exist");
         return datosProfesor[dirProfesor];
     }
     function getDatosAlumno(address dirAlumno) public view returns (DatosAlumno memory){
@@ -127,8 +127,8 @@ contract Asignatura {
         bytes memory bn = bytes(nombreProfesor);
         require(bn.length != 0, "Professor's name can't be blank");
         
-        string memory existeProf = getNombreProfesor(dirProfesor);
-        bytes memory bep = bytes(existeProf);
+        string memory existeProfesor = getNombreProfesor(dirProfesor);
+        bytes memory bep = bytes(existeProfesor);
         require(bep.length == 0, "Can't add a professor multiple times");
         
         profesores.push(dirProfesor);
@@ -160,21 +160,24 @@ contract Asignatura {
                 
         bytes memory bn = bytes(_nombre);
         require(bn.length != 0, "Name can't be blank");
+        bytes memory em = bytes(_email);
+        require(em.length != 0, "Email can't be blank");
         bytes memory bdni = bytes(_dni);
         require(bdni.length != 0, "ID number can't be blank");
         
-        string memory DNIExists = getDatosAlumno(msg.sender).dni;
+        string memory DNIExists = dniMap[_dni];
         bytes memory bdni_exists = bytes(DNIExists);
+
         if (bdni_exists.length != 0){
             revert DNIExistsError({
-                dni:DNIExists,
-                error_msg: "ID Number already exists" 
+                dni:DNIExists
             });
         }
         
         DatosAlumno memory datos = DatosAlumno(_nombre,_email,_dni);
         
         datosAlumno[msg.sender] = datos;
+        dniMap[_dni] = _nombre;
         
         matriculas.push(msg.sender);
     
