@@ -4,16 +4,9 @@ Tarea 2
 Modifique la aplicación web desarrollada para añadir dos botones nuevos para 
 disminuir en uno y poner a cero el valor del contrato Contador desplegado.
 
-
-El botón HTML usado para decremento debe tener "Decrementar" como título, y "cdecr" 
-como valor del atributo id.
-
-El botón HTML usado para reiniciar debe tener "Reset" como título, y "creset" como 
-valor del atributo id.
-
 Cree las funciones App.handleDecr() y App.handleReset() para manejar las pulsaciones 
 sobre los nuevos botones. Estas funciones deber crear transacciones para invocar los
- métodos decr y reset del contrato Contador desplegado.
+métodos decr y reset del contrato Contador desplegado.
 
 Use el servidor serve para servir la app desarrollada.
 */
@@ -24,11 +17,13 @@ App = {
 
     web3: null,  // Creare mi propio objeto web3, de la version 1.4.0
 
+    // TODO: Cambiar la addr por la red Ganache donde despliego el contrato
+
     // Direcion de la red Ganache donde hemos desplegado el contrato Contador.
     addr: "0x30D28c4A310d4bf765A5A10Ca7F5CD80b9d459D7",
 
     contador: null,  // Instancia desplegada del contrato
-
+        
     init: async () => {
         console.log("Inicializando..");
 
@@ -90,6 +85,8 @@ App = {
             document.addEventListener('click', ev => {
               if (matchEvent(ev, '#cincr')) App.handleIncr(ev);
               else if (matchEvent(ev, '#login')) App.handleLogin(ev);
+              else if (matchEvent(ev, '#cdecr')) App.handleDecr(ev);
+              else if (matchEvent(ev, '#creset')) App.handleReset(ev);
             });
 
 
@@ -136,6 +133,52 @@ App = {
 
             // Ejecutar incr como una transacción desde la cuenta account.
             await App.contador.methods.incr().send({from: account,
+                                                    gas: 200000});
+        } catch(error) {
+            console.log(error);
+        }
+    },
+
+    handleDecr: async event => {
+        console.log("Se ha hecho Click en el botón de decrementar.");
+
+        event.preventDefault();
+
+        try {
+            const accounts = await App.web3.eth.getAccounts();
+            const account = accounts[0];
+
+            if (!account) {
+               alert('No se puede acceder a las cuentas de usuario.');
+               return;
+            }
+            console.log("Cuenta =", account);
+
+            // Ejecutar incr como una transacción desde la cuenta account.
+            await App.contador.methods.decr().send({from: account,
+                                                    gas: 200000});
+        } catch(error) {
+            console.log(error);
+        }
+    },
+
+    handleReset: async event => {
+        console.log("Se ha hecho Click en el botón de incrementar.");
+
+        event.preventDefault();
+
+        try {
+            const accounts = await App.web3.eth.getAccounts();
+            const account = accounts[0];
+
+            if (!account) {
+               alert('No se puede acceder a las cuentas de usuario.');
+               return;
+            }
+            console.log("Cuenta =", account);
+
+            // Ejecutar incr como una transacción desde la cuenta account.
+            await App.contador.methods.incr().reset({from: account,
                                                     gas: 200000});
         } catch(error) {
             console.log(error);
