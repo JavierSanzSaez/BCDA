@@ -13,14 +13,9 @@ Use el servidor serve para servir la app desarrollada.
 
 App = {
 
-    chainId: "0x539", // Ganache: es donde he desplegado el contrato
+    chainId: "0x539", // = 1337 -> Ganache: es donde he desplegado el contrato
 
     web3: null,  // Creare mi propio objeto web3, de la version 1.4.0
-
-    // TODO: Cambiar la addr por la red Ganache donde despliego el contrato
-
-    // Direcion de la red Ganache donde hemos desplegado el contrato Contador.
-    addr: "0x30D28c4A310d4bf765A5A10Ca7F5CD80b9d459D7",
 
     contador: null,  // Instancia desplegada del contrato
         
@@ -28,7 +23,7 @@ App = {
         console.log("Inicializando..");
 
         // Comprobar que el navegador soporta Ethereum
-        if (typeof window.ethereum === "undefined") {
+        if (!window.ethereum) {
             alert("Instale MetaMask para usar esta aplicación.");
             return;
         } 
