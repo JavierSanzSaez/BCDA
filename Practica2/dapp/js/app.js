@@ -18,6 +18,8 @@ App = {
     web3: null,  // Creare mi propio objeto web3, de la version 1.4.0
 
     contador: null,  // Instancia desplegada del contrato
+
+    addr:"0x55a8Ea9323C4423B28AE0FE11A38Ae7Ad1d9Ac03",
         
     init: async () => {
         console.log("Inicializando..");
@@ -56,7 +58,7 @@ App = {
             console.log("App.web3 =", App.web3.version);
 
             console.log("Obtener el ABi del contrato Contador.");
-            const response = await fetch('abi.json');
+            const response = await fetch('abi.abi');
             const abi = await response.json();
 
             console.log("Obtener instancia desplegada del contador.");
@@ -74,7 +76,6 @@ App = {
                 document.getElementById('valor').innerHTML = event.returnValues.out;
             });
 
-            // TODO: Ampliar ROUTER de eventos para meter las funciones reset y decremento
             console.log("Configurando manejadores de eventos.");
             const matchEvent = (ev, sel) => ev.target.matches(sel);
             document.addEventListener('click', ev => {
@@ -173,7 +174,7 @@ App = {
             console.log("Cuenta =", account);
 
             // Ejecutar incr como una transacción desde la cuenta account.
-            await App.contador.methods.incr().reset({from: account,
+            await App.contador.methods.reset().send({from: account,
                                                     gas: 200000});
         } catch(error) {
             console.log(error);
