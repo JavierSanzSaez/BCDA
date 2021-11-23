@@ -33,17 +33,23 @@ Contador.setProvider(web3Provider);
             console.log("Dirección del contrato: ", contador.address);
 
             console.log("Inicializando contador")
-            const valor_inicial = await contador.valor.call();
-            console.log("Valor del contador: ", valor_inicial);
+            var valor_inicial = await contador.valor();
+            console.log("Valor del contador: ", Number(valor_inicial));
+
             console.log("Incrementando el contador")
             await contador.incr({from:account});
-            console.log("Valor del contador: ", valor_inicial);
+            valor_inicial = await contador.valor();
+            console.log("Valor del contador: ", Number(valor_inicial));
+
             console.log("Decrementando el contador")
             await contador.decr({from:account});
-            console.log("Valor del contador: ", valor_inicial);
+            valor_inicial = await contador.valor();
+            console.log("Valor del contador: ", Number(valor_inicial));
+
             console.log("Reseteando el contador")
             await contador.reset({from:account});
-            console.log("Valor del contador: ", valor_inicial);
+            valor_inicial = await contador.valor();
+            console.log("Valor del contador: ", Number(valor_inicial));
         }
         catch(error){
             console.log("ERROR: " + error.message || error);
