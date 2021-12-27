@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "create-react-app": "^5.0.0"
+    "@truffle/contract": "^4.4.2",
+    "create-react-app": "^5.0.0",
+    "truffle": "^5.4.26",
+    "web3": "^1.6.1"
   }
 }
