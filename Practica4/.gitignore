@@ -3,3 +3,4 @@ node_modules
 .idea
 .gitkeep
 package-lock.json
+ganache-2.5.4-linux-x86_64.AppImage
