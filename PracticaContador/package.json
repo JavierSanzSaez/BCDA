@@ -1,16 +1,17 @@
 {
-  "name": "asignatura",
+  "name": "bcda_practica4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "create-react-app": "^4.0.3",
-    "truffle": "^5.4.21"
+    "@truffle/contract": "^4.4.2",
+    "create-react-app": "^5.0.0",
+    "truffle": "^5.4.26",
+    "web3": "^1.6.1"
   }
 }

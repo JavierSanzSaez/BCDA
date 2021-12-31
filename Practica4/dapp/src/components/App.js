@@ -1,27 +1,35 @@
-import { DrizzleContext } from '@drizzle/react-plugin';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import AppControl from './AppControl';
-import AppData from './AppData';
-import AppHeader from './AppHeader';
+import '../css/App.css';
+import Loading from './Loading';
+import Layout from './Layout';
+import Home from './Home';
+import Evaluaciones from "./Evaluaciones/Evaluaciones";
+import {Alumnos, Alumno} from "./Alumnos/Alumnos";
+import Calificaciones from "./Calificaciones/Calificaciones";
+import MisCosas from "./MisCosas/MisCosas";
+import NoMatch from './NoMatch';
 
 function App() {
-  return (
-    <DrizzleContext.Consumer>
-      {drizzleContext => {
-        const { drizzle, drizzleState, initialized } = drizzleContext;
-        if (!initialized) {
-          return (<main><h1>⚙ Cargando dapp...</h1></main>);
-        }
-        return (
-          <div className="appCounter">
-            <AppHeader />
-            <AppData drizzle={drizzle} drizzleState={drizzleState} />
-            <AppControl drizzle={drizzle} drizzleState={drizzleState} />
-          </div>
-        )
-      }}
-    </DrizzleContext.Consumer>
-  );
+    return (
+        <div className="App">
+            <Loading>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Layout/>}>
+                            <Route index element={<Home/>}/>
+                            <Route path="evaluaciones" element={<Evaluaciones/>}/>
+                            <Route path="alumnos" element={<Alumnos/>}/>
+                            <Route path="alumnos/:addr" element={<Alumno/>}/>
+                            <Route path="calificaciones" element={<Calificaciones/>}/>
+                            <Route path="miscosas" element={<MisCosas/>}/>
+                            <Route path="*" element={<NoMatch/>}/>
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            </Loading>
+        </div>
+    );
 }
 
 export default App;
