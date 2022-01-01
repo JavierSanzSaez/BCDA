@@ -84,18 +84,6 @@ contract Asignatura {
     }
     
     // Getters
-    function getNombre() public view returns (string memory){
-        return nombre;
-    }
-    function getCurso() public view returns (string memory){
-        return curso;
-    }
-    function getOwnerAddress() public view returns (address){
-        return owner;
-    }
-    function getCoordinador() public view returns (address){
-        return coordinador;
-    }
     function getNombreProfesor(address dirProfesor) public view returns (string memory){
         return datosProfesor[dirProfesor];
     }

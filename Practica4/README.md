@@ -1,2 +1,3 @@
-# Caso de Estudio: Asignatura 2020 Teoría.
+# Practica 4 BCDA
+Autores: Javier Sanz Sáez, Javier Antón Yuste
 
