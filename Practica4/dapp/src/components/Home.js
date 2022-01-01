@@ -1,22 +1,29 @@
-import {drizzleReactHooks} from '@drizzle/react-plugin'
-import {newContextComponents} from "@drizzle/react-components";
+import { drizzleReactHooks } from '@drizzle/react-plugin'
 
-const {AccountData} = newContextComponents;
-const {useDrizzle, useDrizzleState} = drizzleReactHooks;
+import { SoloOwner } from "./checks";
+import { FormCoordinador } from "./home"
+
+
+const { useDrizzle } = drizzleReactHooks;
 
 function Home() {
-    const {drizzle, useCacheCall} = useDrizzle();
-    const drizzleState = useDrizzleState(state => state);
+    const { useCacheCall } = useDrizzle();
 
-    const datos = useCacheCall("Asignatura", "owner");
-    const yo = useCacheCall("Asignatura","quienSoy");
+    const owner = useCacheCall("Asignatura", "owner");
+    const coordinador = useCacheCall("Asignatura", "coordinador");
 
+    const renderCoordinador = Number(coordinador) === "0x0000000000000000000000000000000000000000" ?
+        "Dirección del coordinador de la Asignatura: " + coordinador + "" :
+        "¡No hay coordinador para la asignatura!"
 
     return (
         <div>
             <h2>Página Home de la Asignatura</h2>
-            <p>Dirección del usuario owner: {datos}</p>
-
+            <p>Dirección del usuario owner: {owner}</p>
+            <p>{renderCoordinador}</p>
+            <SoloOwner>
+                <FormCoordinador />
+            </SoloOwner>
 
         </div>
 
