@@ -6,14 +6,8 @@ import {SoloOwner} from "../checks";
 
 const {useDrizzle, useDrizzleState} = drizzleReactHooks;
 
-/*
-PENDIENTE DE INVESTIGAR:
-Si se usa useCacheSend, se envian varias transacciones cada vez que se hace un submit del formulario.
-El problema esta relacionado con actualizar el estado del stackIds dentro de la implementacion de ese hook.
- */
-
 const FormCoordinador = () => {
-    const {drizzle} = useDrizzle();
+    const {drizzle, useCacheCall} = useDrizzle();
 
     // Obtener el status de la ultima transaccion enviada:
     const { transactionStack, transactions } = useDrizzleState(drizzleState => ({
@@ -24,48 +18,32 @@ const FormCoordinador = () => {
     const txObject = transactions[transactionStack[lastStackID] || 'undefined'];
     const status = txObject?.status;
 
+    const statusMessage = status !== "" ? status:""
     // Conservar los valores metidos en el formulario
-    let [alumnoAddr, setAlumnoAddr] = useState("")
-    let [indexEval, setEvalIndex] = useState("")
-    let [tipo, setTipo] = useState("")
-    let [calificacion, setCalificacion] = useState("")
+    const currentCoord = useCacheCall("Asignatura","coordinador")
+    let [coordinadorAddr, setCoordinadorAddr] = useState(
+        currentCoord==="0x0000000000000000000000000000000000000000"?"":currentCoord
+    )
 
     return (<article className="AppMisDatos">
         <h3>Formulario de coordinador</h3>
         <SoloOwner>
             <form>
                 <p>
-                    Dirección del Alumno:  &nbsp;
-                    <input key="alumno" type="text" name="alumno" value={alumnoAddr} placeholder="Dirección del alumno"
-                           onChange={ev => setAlumnoAddr(ev.target.value)}/>
+                    Dirección del nuevo Coordinador:  &nbsp;
+                    <input key="alumno" type="text" name="alumno" value={coordinadorAddr} placeholder="Dirección del coordinador"
+                           onChange={ev => setCoordinadorAddr(ev.target.value)}/>
                 </p>
-                <p>
-                    Índice de la Evaluación:  &nbsp;
-                    <input key="evaluacion" type="number" name="evaluacion" value={indexEval}
-                           placeholder="Índice de la evaluación"
-                           onChange={ev => setEvalIndex(ev.target.value)}/>
-                </p>
-                <p>
-                    Tipo: (0=NP 1=Nota 2=MH):  &nbsp;
-                    <input key="tipo" type="number" name="tipo" value={tipo} placeholder="Tipo de nota"
-                           onChange={ev => setTipo(ev.target.value)}/>
-                </p>
-                <p>
-                    Nota (x10):  &nbsp;
-                    <input key="calificacion" type="number" name="calificacion" value={calificacion} placeholder="Nota"
-                           onChange={ev => setCalificacion(ev.target.value)}/>
-                </p>
-
                 <button key="submit" className="pure-button" type="button"
                         onClick={ev => {
                             ev.preventDefault();
-                             const stackId = drizzle.contracts.Asignatura.methods.califica.cacheSend(alumnoAddr, indexEval, tipo, calificacion);
+                             const stackId = drizzle.contracts.Asignatura.methods.setCoordinador.cacheSend(coordinadorAddr);
                             setLastStackID(stackId);
                         }}>
-                    Calificar
+                    Actualizar
                 </button>
-
-                <p> Último estado = {status} </p>
+                
+                <p>{statusMessage}</p>
             </form>
         </SoloOwner>
     </article>);
