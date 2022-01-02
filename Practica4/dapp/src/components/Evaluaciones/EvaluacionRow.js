@@ -4,9 +4,9 @@ const {useDrizzle} = drizzleReactHooks;
 
 const EvaluacionRow = ({evaluacionIndex}) => {
     const {useCacheCall} = useDrizzle();
-
+    console.log(ev)
     const ev = useCacheCall("Asignatura", "evaluaciones", evaluacionIndex);
-
+    console.log(ev)
     return <tr key={"EVA-" + evaluacionIndex}>
             <th>E<sub>{evaluacionIndex}</sub></th>
             <td>{ev?.nombre}</td>

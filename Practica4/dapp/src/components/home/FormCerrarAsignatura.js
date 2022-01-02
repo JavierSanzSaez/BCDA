@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { drizzleReactHooks } from '@drizzle/react-plugin'
-import { useEffect } from "react/cjs/react.production.min";
 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 

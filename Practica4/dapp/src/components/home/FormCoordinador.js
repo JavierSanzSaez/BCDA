@@ -2,8 +2,6 @@ import {useState} from "react";
 
 import {drizzleReactHooks} from '@drizzle/react-plugin'
 
-import {SoloOwner} from "../checks";
-
 const {useDrizzle, useDrizzleState} = drizzleReactHooks;
 
 const FormCoordinador = () => {
@@ -27,7 +25,6 @@ const FormCoordinador = () => {
 
     return (<article className="AppMisDatos">
         <h3>Formulario de coordinador</h3>
-        <SoloOwner>
             <form>
                 <p>
                     Dirección del nuevo Coordinador:  &nbsp;
@@ -45,7 +42,6 @@ const FormCoordinador = () => {
                 
                 <p>{statusMessage}</p>
             </form>
-        </SoloOwner>
     </article>);
 };
 
