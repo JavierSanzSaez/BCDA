@@ -8,12 +8,14 @@ const SoloCoordinador = ({children}) => {
 
     const profesorAddr = useCacheCall("Asignatura", "coordinador");
 
-    if (profesorAddr !== drizzleState.accounts[0]) {
-        return <p>NO SOY EL COORDINADOR</p>
-    }
-    return <>
+    if (profesorAddr === drizzleState.accounts[0]) {
+        return <>
         {children}
     </>
+    }
+    else{
+        return null
+    }
 
 };
 

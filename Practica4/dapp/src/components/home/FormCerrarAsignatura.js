@@ -5,7 +5,6 @@ import { useEffect } from "react/cjs/react.production.min";
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 const FormCerrarAsignatura = ({ cerrada }) => {
-    console.log(cerrada)
     const { drizzle } = useDrizzle();
 
     // Obtener el status de la ultima transaccion enviada:
@@ -40,7 +39,6 @@ const FormCerrarAsignatura = ({ cerrada }) => {
                 {cerrada ? "Abrir" : "Cerrar"}
             </div>
         </button>
-        <p>{status}</p>
     </div>);
 };
 
