@@ -9,7 +9,9 @@ const { useDrizzle } = drizzleReactHooks;
 
 const Home = () => {
     const { useCacheCall } = useDrizzle();
+    const [cerrada, setCerrada] = useState(null);
 
+    const cerradaCache = useCacheCall("Asignatura", "cerrada")
     const owner = useCacheCall("Asignatura", "owner");
     const coordinador = useCacheCall("Asignatura", "coordinador");
 
@@ -17,7 +19,10 @@ const Home = () => {
         "Dirección del coordinador de la Asignatura: " + coordinador + "" :
         "¡No hay coordinador para la asignatura!";
 
-    const cerrada = useCacheCall("Asignatura", "cerrada")
+    useEffect(()=>{
+        setCerrada(cerradaCache)
+    },[cerradaCache]);
+
     const statusAsignatura = cerrada?"cerrada":"abierta";
     const statusAsignaturaStyle = {
         true:"status-cerrada",

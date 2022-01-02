@@ -1,12 +1,11 @@
 import { useState } from "react";
 
 import { drizzleReactHooks } from '@drizzle/react-plugin'
-import { useEffect } from "react/cjs/react.production.min";
 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 const FormCerrarAsignatura = ({ cerrada }) => {
-    const { drizzle, useCacheCall } = useDrizzle();
+    const { drizzle } = useDrizzle();
 
     // Obtener el status de la ultima transaccion enviada:
     const { transactionStack, transactions } = useDrizzleState(drizzleState => ({
