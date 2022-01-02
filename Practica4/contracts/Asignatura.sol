@@ -109,6 +109,10 @@ contract Asignatura {
     function cerrar() soloCoordinador public{
         cerrada = true;
     }
+
+    function abrir() soloCoordinador public{
+        cerrada = false;
+    }
     
     function addProfesor(address dirProfesor, string memory nombreProfesor) soloOwner soloAbierta public {
         

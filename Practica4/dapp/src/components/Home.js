@@ -1,5 +1,4 @@
 import { drizzleReactHooks } from '@drizzle/react-plugin'
-import { useEffect, useState } from 'react/cjs/react.production.min';
 
 import { SoloOwner, SoloCoordinador } from "./checks";
 import { FormCoordinador, FormCerrarAsignatura } from "./home"
@@ -9,19 +8,15 @@ const { useDrizzle } = drizzleReactHooks;
 
 const Home = () => {
     const { useCacheCall } = useDrizzle();
-    const [cerrada, setCerrada] = useState(null);
 
-    const cerradaCache = useCacheCall("Asignatura", "cerrada")
+    const cerrada = useCacheCall("Asignatura", "cerrada");
+
     const owner = useCacheCall("Asignatura", "owner");
     const coordinador = useCacheCall("Asignatura", "coordinador");
 
     const renderCoordinador = coordinador !== "0x0000000000000000000000000000000000000000" ?
         "Dirección del coordinador de la Asignatura: " + coordinador + "" :
         "¡No hay coordinador para la asignatura!";
-
-    useEffect(()=>{
-        setCerrada(cerradaCache)
-    },[cerradaCache]);
 
     const statusAsignatura = cerrada?"cerrada":"abierta";
     const statusAsignaturaStyle = {
