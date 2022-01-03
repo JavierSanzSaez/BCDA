@@ -25,7 +25,7 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className="home">
             <h2>Página Home de la Asignatura</h2>
             <p>Dirección del usuario owner: {owner}</p>
             <p>{renderCoordinador}</p>

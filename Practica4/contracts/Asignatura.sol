@@ -27,13 +27,13 @@ contract Asignatura {
      * Datos de una evaluación
      */
     struct Evaluacion {
-        string nombreEval;
+        string nombre;
         uint fecha;
         uint puntos;
     }
     
     /// Evaluaciones de la asignatura
-    Evaluacion[] evaluaciones;
+    Evaluacion[] public evaluaciones;
     
     /// Datos de un getAlumno
     struct DatosAlumno{

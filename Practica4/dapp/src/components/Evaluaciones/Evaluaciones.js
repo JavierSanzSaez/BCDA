@@ -13,7 +13,7 @@ const Evaluaciones = () => {
     const el = useCacheCall("Asignatura", "evaluacionesLength");
 
     return (
-        <div>
+        <div className="evaluaciones"> 
             <section className="AppEvaluaciones">
                 <h2>Evaluaciones</h2>
                 <table>

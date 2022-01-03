@@ -30,10 +30,10 @@ const FormEvaluaciones = () => {
             <p>
                 Fecha &nbsp;
                 <input key="fechaEval" type="date" name="fechaEval"
-                    onChange={ev => setfechaEval(ev.target.value.getTime())} />
+                    onChange={ev => setfechaEval((new Date(ev.target.value).getTime())/1000)} />
             </p>
             <p>
-                Puntos &nbsp;
+            Puntos (0-100) &nbsp;
                 <input key="puntosEval" type="number" name="puntosEval" placeholder="Puntos"
                     onChange={ev => setpuntosEval(ev.target.value)} />
             </p>
