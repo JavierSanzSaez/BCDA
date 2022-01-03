@@ -4,7 +4,7 @@ import '../css/App.css';
 import Loading from './Loading';
 import Layout from './Layout';
 import Home from './Home';
-import Evaluaciones from "./Evaluaciones/Evaluaciones";
+import {Evaluaciones, EvaluacionCalificaciones} from "components/Evaluaciones";
 import {Alumnos, Alumno} from "./Alumnos/Alumnos";
 import Calificaciones from "./Calificaciones/Calificaciones";
 import MisCosas from "./MisCosas/MisCosas";
@@ -23,6 +23,7 @@ function App() {
                             <Route path="alumnos/:addr" element={<Alumno/>}/>
                             <Route path="calificaciones" element={<Calificaciones/>}/>
                             <Route path="miscosas" element={<MisCosas/>}/>
+                            <Route path="evaluacion/:evaluacionIndex" element={<EvaluacionCalificaciones/>}/>
                             <Route path="*" element={<NoMatch/>}/>
                         </Route>
                     </Routes>
