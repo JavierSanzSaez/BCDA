@@ -1,29 +1,27 @@
 import {drizzleReactHooks} from '@drizzle/react-plugin'
 
-const SoloProfesor = ({children}) => {
-    const {useDrizzleState, useDrizzle} = drizzleReactHooks;
-    const drizzleState = useDrizzleState(state => state);    
+const ShowProfesores = () => {
+    const { useDrizzle } = drizzleReactHooks;
+    
     const { useCacheCall } = useDrizzle();
-
     let profesoresAddrs = useCacheCall(["Asignatura"], call => {
         let profesoresAddrs = [];
         let profesoresLength = call("Asignatura", "profesoresLength")
         for (let i = 0; i < profesoresLength; i++) {
             let profesorAddr = call("Asignatura", "profesores", i)
-            profesoresAddrs.push(profesorAddr)
+            let profesorName = call("Asignatura","getNombreProfesor", profesorAddr)
+            profesoresAddrs.push(<p>{profesorName} ({profesorAddr})</p>)
         }
         return profesoresAddrs;
     });
 
-    if ( profesoresAddrs.includes(drizzleState.accounts[0])) {
-        return <>
-        {children}
-    </>
-    }
-    else{
-        return null
-    }
+    return (
+        <div>
+            <h3>Profesores actuales</h3>
+            {profesoresAddrs}
+        </div>
 
-};
+    )
+}
 
-export default SoloProfesor
+export default ShowProfesores 

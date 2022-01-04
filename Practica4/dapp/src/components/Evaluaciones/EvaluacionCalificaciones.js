@@ -31,10 +31,9 @@ export const EvaluacionCalificaciones = () => {
                     </td>
 
                 </tr>
-
-
             )
         }
+        console.log(cells)
         return cells;
     });
 
