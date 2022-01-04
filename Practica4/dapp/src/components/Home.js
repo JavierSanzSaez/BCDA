@@ -1,7 +1,7 @@
 import { drizzleReactHooks } from '@drizzle/react-plugin'
 
 import { SoloOwner, SoloCoordinador } from "./checks";
-import { FormCoordinador, FormCerrarAsignatura } from "./home"
+import { FormCoordinador, FormCerrarAsignatura, FormProfesor } from "./home"
 
 
 const { useDrizzle } = drizzleReactHooks;
@@ -31,6 +31,7 @@ const Home = () => {
             <p>{renderCoordinador}</p>
             <SoloOwner>
                 <FormCoordinador />
+                <FormProfesor />
             </SoloOwner>
             <p>Esta Asignatura está <span id={statusAsignaturaStyle[cerrada]} >{statusAsignatura}</span></p>
             <SoloCoordinador>
