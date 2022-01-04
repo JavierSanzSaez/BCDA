@@ -19,7 +19,8 @@ contract Asignatura {
     bool public cerrada; // Boolean to check whether the subject is closed or not
     mapping(address => string) public datosProfesor;  // Dict: name-address
     address[] public profesores; // Proffessors' user addresses
-    
+    mapping(address => bool) public isProfesor;
+
     // Error definition
     error DNIExistsError (string dni);
 
@@ -125,6 +126,8 @@ contract Asignatura {
         
         profesores.push(dirProfesor);
         datosProfesor[dirProfesor] = nombreProfesor;
+
+        isProfesor[dirProfesor] = true;
     }
     
     function profesoresLength() public view returns (uint) {
@@ -203,7 +206,7 @@ contract Asignatura {
     
     // Modifiers
      modifier soloProfesor() {
-         require(msg.sender == profesor, "Only proffesor allowed");
+         require(isProfesor[msg.sender], "Only proffesors allowed");
          _;
      }
      modifier soloMatriculados(){
