@@ -67,3 +67,9 @@ th {
   align-items: flex-start;
   justify-content: space-evenly;
 }
+
+.home{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

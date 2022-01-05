@@ -18,29 +18,33 @@ const Home = () => {
         "Dirección del coordinador de la Asignatura: " + coordinador + "" :
         "¡No hay coordinador para la asignatura!";
 
-    const statusAsignatura = cerrada?"cerrada":"abierta";
+    const statusAsignatura = cerrada ? "cerrada" : "abierta";
     const statusAsignaturaStyle = {
-        true:"status-cerrada",
-        false:"status-abierta"
+        true: "status-cerrada",
+        false: "status-abierta"
     }
 
     return (
         <div className="home">
-            <h2>Página Home de la Asignatura</h2>
-            <p>Dirección del usuario owner: {owner}</p>
-            <p>{renderCoordinador}</p>
-            <SoloOwner>
-                <FormCoordinador />
-                <ShowProfesores/>
-                <FormProfesor />
-            </SoloOwner>
-            <p>Esta Asignatura está <span id={statusAsignaturaStyle[cerrada]} >{statusAsignatura}</span></p>
-            <SoloCoordinador>
-                <FormCerrarAsignatura cerrada={cerrada} />
-            </SoloCoordinador>
+            <div className="home-show-direcciones">
+                <h2>Página Home de la Asignatura</h2>
+                <p>Dirección del usuario owner: {owner}</p>
+                <p>{renderCoordinador}</p>
+            </div>
+            <div className="home-soloOwner">
+                <SoloOwner>
+                    <FormCoordinador />
+                    <ShowProfesores />
+                    <FormProfesor />
+                </SoloOwner>
+            </div>
+            <div className="home-cerrarAsignatura">
+                <p>Esta Asignatura está <span id={statusAsignaturaStyle[cerrada]} >{statusAsignatura}</span></p>
+                <SoloCoordinador>
+                    <FormCerrarAsignatura cerrada={cerrada} />
+                </SoloCoordinador>
+            </div>
         </div>
-
-
     );
 }
 

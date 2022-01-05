@@ -1,9 +1,11 @@
-import {drizzleReactHooks} from '@drizzle/react-plugin'
+import { drizzleReactHooks } from '@drizzle/react-plugin'
+import { SoloProfesor } from 'components/checks';
+import { Link } from "react-router-dom";
 
-const {useDrizzle} = drizzleReactHooks;
+const { useDrizzle } = drizzleReactHooks;
 
-const CalificacionRow = ({alumnoIndex}) => {
-    const {useCacheCall} = useDrizzle();
+const CalificacionRow = ({ alumnoIndex }) => {
+    const { useCacheCall } = useDrizzle();
 
     const alumnoAddr = useCacheCall("Asignatura", "matriculas", alumnoIndex);
 
@@ -20,9 +22,19 @@ const CalificacionRow = ({alumnoIndex}) => {
             const nota = call("Asignatura", "calificaciones", alumnoAddr, ei);
             cells.push(
                 <td key={"p2-" + alumnoIndex + "-" + ei}>
+
                     {nota?.tipo === "0" ? "N.P." : ""}
                     {nota?.tipo === "1" ? (nota?.calificacion / 10).toFixed(1) : ""}
                     {nota?.tipo === "2" ? (nota?.calificacion / 10).toFixed(1) + "(M.H.)" : ""}
+                    <p></p>
+                    <SoloProfesor>
+                        <Link to={`nuevaCalificacion/${alumnoAddr}/${ei}`}>
+                            <button>
+                                Actualizar
+                            </button>
+                        </Link>
+                    </SoloProfesor>
+
                 </td>
             );
         }
@@ -30,10 +42,10 @@ const CalificacionRow = ({alumnoIndex}) => {
     });
 
     return <tr key={"d" + alumnoIndex}>
-            <th>A<sub>{alumnoIndex}</sub></th>
-            <td>{alumnoName}</td>
-            {cells}
-        </tr>;
+        <th>A<sub>{alumnoIndex}</sub></th>
+        <td>{alumnoName}</td>
+        {cells}
+    </tr>;
 };
 
 export default CalificacionRow;

@@ -6,7 +6,7 @@ import Layout from './Layout';
 import Home from './Home';
 import {Evaluaciones, EvaluacionCalificaciones} from "components/Evaluaciones";
 import {Alumnos, Alumno} from "./Alumnos/Alumnos";
-import Calificaciones from "./Calificaciones/Calificaciones";
+import {Calificaciones, NuevaCalificacion} from "components/Calificaciones";
 import MisCosas from "./MisCosas/MisCosas";
 import NoMatch from './NoMatch';
 
@@ -24,6 +24,7 @@ function App() {
                             <Route path="calificaciones" element={<Calificaciones/>}/>
                             <Route path="miscosas" element={<MisCosas/>}/>
                             <Route path="evaluacion/:evaluacionIndex" element={<EvaluacionCalificaciones/>}/>
+                            <Route path="calificaciones/nuevaCalificacion/:alumnoAddr/:ei" element={<NuevaCalificacion/>}/>
                             <Route path="*" element={<NoMatch/>}/>
                         </Route>
                     </Routes>
